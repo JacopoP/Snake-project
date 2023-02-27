@@ -1,0 +1,37 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: red;
+    text-align: center;
+    margin-top: 15px;
+}
+
+#game_container {
+    margin: 20px auto;
+    width: 60%;
+    display: flex;
+    height: calc(100vh - 30%);
+    align-items: flex-start;
+    flex-wrap: wrap;
+    border: 1px solid #000;
+}
+
+.square {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: calc(100% / 24);
+    aspect-ratio: 1;
+    border: 1px solid #000;
+}
+
+.snakeCase {
+    background-color: gray;
+}
+
+.snakeHead {
+    background-color: red;
+}
