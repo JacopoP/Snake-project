@@ -25,7 +25,7 @@ table[head].classList.add('snakeHead');
 
 setInterval(function () {
     movement();
-}, 1000);
+}, 500);
 
 // fruit info
 
