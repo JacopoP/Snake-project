@@ -17,13 +17,13 @@ let snake = [169, 170];
 
 let head = 171;
 
-let giveInput = true;
-
 snake.forEach(snakeSquare => table[snakeSquare].classList.add('snakeBody'));
 
 table[head].classList.add('snakeHead');
 
-setInterval(function () {
+// clock
+
+const gameOn = setInterval(function () {
     movement();
 }, 500);
 
@@ -36,26 +36,41 @@ table[fruit].classList.add('fruit');
 // functions
 // movement function
 
+let giveInput = true;
+
 function movement() {
     snake.push(head);
-    if (head + direction == fruit) {
-        table[fruit].classList.remove('fruit');
-        do {
-            fruit = Math.floor(Math.random() * 359);
-        } while (snake.includes(fruit));
-        table[fruit].classList.add('fruit');
+    const newHead = head + direction;
+    if (
+        snake.length == 360 ||
+        snake.includes(newHead) ||
+        newHead < 0 ||
+        newHead >= 360 ||
+        (head % 24 == 0 && direction == -1) ||
+        (head % 24 == 23 && direction == 1)
+    ) {
+        gameOver()
     }
     else {
-        table[snake[0]].classList.remove('snakeBody');
-        snake.shift();
+        if (newHead == fruit) {
+            table[fruit].classList.remove('fruit');
+            do {
+                fruit = Math.floor(Math.random() * 359);
+            } while (snake.includes(fruit));
+            table[fruit].classList.add('fruit');
+        }
+        else {
+            table[snake[0]].classList.remove('snakeBody');
+            snake.shift();
+        }
+        table[head].classList.remove('snakeHead');
+        head += direction;
+
+        snake.forEach(snakeSquare => table[snakeSquare].classList.add('snakeBody'));
+
+        table[head].classList.add('snakeHead');
+        giveInput = true;
     }
-    table[head].classList.remove('snakeHead');
-    head += direction;
-
-    snake.forEach(snakeSquare => table[snakeSquare].classList.add('snakeBody'));
-
-    table[head].classList.add('snakeHead');
-    giveInput = true;
 }
 
 // change direction
@@ -84,3 +99,9 @@ document.addEventListener('keydown', function (event) {
         }
     }
 })
+
+// game over
+
+function gameOver() {
+    clearInterval(gameOn);
+}
