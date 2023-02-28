@@ -17,12 +17,23 @@ let snake = [169, 170];
 
 let head = 171;
 
+let giveInput = true;
+
 snake.forEach(snakeSquare => table[snakeSquare].classList.add('snakeBody'));
 
 table[head].classList.add('snakeHead');
 
-setInterval(movement, 1000);
+setInterval(function () {
+    movement();
+}, 1000);
 
+// fruit info
+
+// let fruit = 185;
+
+// table[fruit].classList.add('fruit');
+
+// functions
 // movement function
 
 function movement() {
@@ -35,25 +46,32 @@ function movement() {
     snake.forEach(snakeSquare => table[snakeSquare].classList.add('snakeBody'));
 
     table[head].classList.add('snakeHead');
+    giveInput = true;
 }
 
 // change direction
 
 document.addEventListener('keydown', function (event) {
-    if (direction != -24 && direction != 24) {
-        if (event.key == 'ArrowDown' || event.key == 's') {
-            direction = 24;
+    if (giveInput) {
+        if (direction != -24 && direction != 24) {
+            if (event.key == 'ArrowDown' || event.key == 's') {
+                direction = 24;
+                giveInput = false;
+            }
+            else if (event.key == 'ArrowUp' || event.key == 'w') {
+                direction = -24;
+                giveInput = false;
+            }
         }
-        else if (event.key == 'ArrowUp' || event.key == 'w') {
-            direction = -24;
-        }
-    }
-    if (direction != -1 && direction != 1) {
-        if (event.key == 'ArrowRight' || event.key == 'd') {
-            direction = 1;
-        }
-        else if (event.key == 'ArrowLeft' || event.key == 'a') {
-            direction = -1;
+        if (direction != -1 && direction != 1) {
+            if (event.key == 'ArrowRight' || event.key == 'd') {
+                direction = 1;
+                giveInput = false;
+            }
+            else if (event.key == 'ArrowLeft' || event.key == 'a') {
+                direction = -1;
+                giveInput = false;
+            }
         }
     }
 })
