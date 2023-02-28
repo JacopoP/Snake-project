@@ -1,5 +1,7 @@
 const container = document.getElementById('game_container');
 
+let gameOn;
+
 // creating the table
 for (let i = 1; i <= 360; i++) {
     const square = document.createElement('div');
@@ -11,27 +13,38 @@ const table = document.getElementsByClassName('square');
 
 // snake info
 
-let direction = 1;
+let direction;
 
-let snake = [169, 170];
+let snake = [];
 
-let head = 171;
-
-snake.forEach(snakeSquare => table[snakeSquare].classList.add('snakeBody'));
-
-table[head].classList.add('snakeHead');
+let head;
 
 // clock
 
-const gameOn = setInterval(function () {
-    movement();
-}, 500);
+let playing = false;
+
+document.addEventListener('click', function () {
+    if (!playing) {
+        for (let i = 0; i < 360; i++) {
+            table[i].classList.remove('snakeBody', 'snakeHead', 'fruit');
+        }
+        direction = 1;
+        snake = [169, 170];
+        head = 171;
+        fruit = 185;
+        snake.forEach(snakeSquare => table[snakeSquare].classList.add('snakeBody'));
+        table[head].classList.add('snakeHead');
+        table[fruit].classList.add('fruit');
+        gameOn = setInterval(function () {
+            movement();
+        }, 500);
+        playing = true;
+    }
+})
 
 // fruit info
 
-let fruit = 185;
-
-table[fruit].classList.add('fruit');
+let fruit;
 
 // functions
 // movement function
@@ -104,4 +117,5 @@ document.addEventListener('keydown', function (event) {
 
 function gameOver() {
     clearInterval(gameOn);
+    playing = false;
 }
