@@ -29,18 +29,27 @@ setInterval(function () {
 
 // fruit info
 
-// let fruit = 185;
+let fruit = 185;
 
-// table[fruit].classList.add('fruit');
+table[fruit].classList.add('fruit');
 
 // functions
 // movement function
 
 function movement() {
     snake.push(head);
+    if (head + direction == fruit) {
+        table[fruit].classList.remove('fruit');
+        do {
+            fruit = Math.floor(Math.random() * 359);
+        } while (snake.includes(fruit));
+        table[fruit].classList.add('fruit');
+    }
+    else {
+        table[snake[0]].classList.remove('snakeBody');
+        snake.shift();
+    }
     table[head].classList.remove('snakeHead');
-    table[snake[0]].classList.remove('snakeBody');
-    snake.shift();
     head += direction;
 
     snake.forEach(snakeSquare => table[snakeSquare].classList.add('snakeBody'));

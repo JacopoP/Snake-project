@@ -29,9 +29,13 @@ h1 {
 }
 
 .snakeBody {
-    background-color: gray;
+    background-color: lightgreen;
 }
 
 .snakeHead {
+    background-color: green;
+}
+
+.fruit {
     background-color: red;
 }
