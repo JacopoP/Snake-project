@@ -19,7 +19,9 @@ let snake = [];
 
 let head;
 
-// clock
+// engine
+
+//game strart
 
 let playing = false;
 
@@ -35,9 +37,12 @@ document.addEventListener('click', function () {
         snake.forEach(snakeSquare => table[snakeSquare].classList.add('snakeBody'));
         table[head].classList.add('snakeHead');
         table[fruit].classList.add('fruit');
+
+        // clock
         gameOn = setInterval(function () {
             movement();
         }, 500);
+
         playing = true;
     }
 })
@@ -54,14 +59,17 @@ let giveInput = true;
 function movement() {
     snake.push(head);
     const newHead = head + direction;
+    let tail = false;
+    if (snake[0] != newHead) tail = true;
     if (
         snake.length == 360 ||
-        snake.includes(newHead) ||
+        (snake.includes(newHead) && tail) ||
         newHead < 0 ||
         newHead >= 360 ||
         (head % 24 == 0 && direction == -1) ||
         (head % 24 == 23 && direction == 1)
     ) {
+        tail = false;
         gameOver()
     }
     else {
